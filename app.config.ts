@@ -1,12 +1,13 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
 import 'dotenv/config';
-// ExpoConfig를 확장하여 커스텀 속성을 포함할 수 있는 타입을 정의합니다.
+
 type CustomExpoConfig = ExpoConfig & {
   ios?: ExpoConfig['ios'] & {
     buildNumber?: string;
   };
   android?: ExpoConfig['android'] & {
     versionCode?: number;
+    package?: string; // 패키지 이름을 위한 필드 추가
   };
 };
 
@@ -32,6 +33,7 @@ export default ({ config }: ConfigContext): CustomExpoConfig => ({
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
+    package: 'com.yourcompany.danielstrainingtables', // 여기에 고유한 패키지 이름을 추가
     ...(process.env.MY_ENVIRONMENT === 'production' ? { versionCode: 1 } : {}),
   },
   web: {
@@ -50,5 +52,10 @@ export default ({ config }: ConfigContext): CustomExpoConfig => ({
   ],
   experiments: {
     typedRoutes: true,
+  },
+  extra: {
+    eas: {
+      projectId: 'e011941c-382b-4146-892a-71b08a25fd5a',
+    },
   },
 });

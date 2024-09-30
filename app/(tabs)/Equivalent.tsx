@@ -4,17 +4,21 @@ import EquivalentPaces from '@/components/EquivalentPaces';
 import { View, ScrollView } from 'react-native';
 import { FC } from 'react';
 import { AnimatedTabContent } from '@/components/AnimatedTabContent';
+import Header from '@/components/Header';
 
 const EquivalentScreen: FC = () => {
   return (
-    <View className="px-4 w-full h-full">
+    <>
+      <Header title="Equivalent" />
       <ScrollView>
-        <View className="bg-white p-4 rounded-lg">
-          <CalculationResults />
-          <EquivalentPaces />
+        <View className="px-4 w-full h-full">
+          <View className="bg-white p-4 rounded-lg">
+            <CalculationResults />
+            <EquivalentPaces />
+          </View>
         </View>
       </ScrollView>
-    </View>
+    </>
   );
 };
 
