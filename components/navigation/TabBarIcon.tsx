@@ -1,9 +1,32 @@
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
+import React from 'react';
+import { Ionicons, MaterialIcons, FontAwesome, Feather, AntDesign } from '@expo/vector-icons';
 
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { type IconProps } from '@expo/vector-icons/build/createIconSet';
-import { type ComponentProps } from 'react';
+interface TabBarIconProps {
+  iconType: 'Ionicons' | 'MaterialIcons' | 'FontAwesome' | 'Feather' | 'AntDesign';
+  name: string;
+  color: string;
+  size?: number; // size도 전달할 수 있게 기본값을 설정할 수 있습니다.
+  style?: any;
+}
 
-export function TabBarIcon({ style, ...rest }: IconProps<ComponentProps<typeof Ionicons>['name']>) {
-  return <Ionicons size={28} style={[{ marginBottom: -3 }, style]} {...rest} />;
+const iconMap = {
+  Ionicons,
+  MaterialIcons,
+  FontAwesome,
+  Feather,
+  AntDesign,
+};
+
+export function TabBarIcon({ iconType, name, color, size = 28, style, ...rest }: TabBarIconProps) {
+  const IconComponent = iconMap[iconType] as React.ElementType;
+
+  return (
+    <IconComponent
+      name={name}
+      color={color} // color를 명시적으로 전달
+      size={size} // size를 명시적으로 전달하고 기본값을 28로 설정
+      style={[{ marginBottom: -3 }, style]}
+      {...rest} // 기타 나머지 props
+    />
+  );
 }
